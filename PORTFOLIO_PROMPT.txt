@@ -1,0 +1,36 @@
+PROMPT TO USE WITH AN AI WEBSITE BUILDER
+
+Create and continuously improve a modern, responsive personal portfolio website for:
+
+Name: Mariem Mohamed Gharieb
+University: Faculty of Computers and Information, Suez Canal University
+Year: Second Year
+Department: Software Engineering
+
+Purpose:
+A professional student portfolio that introduces me, presents my skills and projects, and includes a dedicated section where I can add and track assignments for my Web Development course.
+
+Design:
+- Clean, modern, premium-looking dark navy theme with soft lavender and mint accents.
+- Responsive on mobile, tablet, and desktop.
+- Smooth navigation and subtle hover effects.
+- Professional typography, clear spacing, rounded cards, and accessible contrast.
+- Write all website content in English.
+
+Sections:
+1. Hero section with my name, role, short introduction, and buttons.
+2. About Me.
+3. Skills: Python, C++, Object-Oriented Programming (OOP), problem solving; HTML, CSS, and JavaScript should be marked as learning unless I confirm otherwise.
+4. Projects: Hospital Management System (Python, OOP, GUI), programming practice, and Web Development tasks.
+5. Web Development Tasks: allow me to add tasks, mark them complete, and delete them. Save tasks in localStorage so they remain after refreshing the page on the same browser.
+6. Contact section with editable placeholders for email, GitHub, and LinkedIn.
+
+Important:
+- Use semantic HTML, clean CSS, and vanilla JavaScript unless I ask for a framework.
+- Keep the code organized, commented where useful, and beginner-friendly.
+- Do not invent my email, GitHub, LinkedIn, certificates, grades, or work experience.
+- Make every button and navigation link work.
+- Ensure accessibility, keyboard usability, and mobile responsiveness.
+- When I give you a Web Development task, add it as a new item in the task tracker and, if requested, create a separate project card for the finished task.
+- Explain which files changed and how to run the website locally.
+- Ask me for any missing task requirements instead of guessing.
