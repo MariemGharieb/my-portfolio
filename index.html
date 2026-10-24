@@ -88,10 +88,16 @@ footer{padding:28px 0;color:var(--muted);font-size:.9rem;text-align:center}
 <section id="web-tasks">
   <div class="section-head"><div class="kicker">Practice tracker</div><h2>Web Development Tasks</h2><p>Add your Web course tasks here and tick them off as you finish. Tasks are saved in this browser on this device.</p></div>
   <div class="taskbox">
-    <form class="task-form" id="taskForm"><input id="taskInput" type="text" placeholder="e.g. Create a responsive login page" aria-label="New web task" required><button type="submit">Add Task +</button></form>
-    <ul id="tasks"></ul>
-    <p class="note">Tip: use this section for HTML, CSS, JavaScript, responsive design, forms, and any other Web course assignments.</p>
-  </div>
+  <div class="taskbox">
+  <ul id="tasks" style="list-style-type: disc; padding-left: 20px; text-align: left; color: white;">
+    <li style="margin-bottom: 8px;"><a href="https://docs.google.com/document/d/17XNaugrMuMX4-rdWWFGvPr8POZNRQrSZKRgXtgYHjmE/edit?usp=drivesdk" target="_blank" style="color: #4fc3f7; text-decoration: underline;">Task 1 Document</a></li>
+    <li style="margin-bottom: 8px;"><a href="https://docs.google.com/document/d/154Uw86ijGFRDRa_fFR_YgahBB3kjBqXRDCPKyuJzTT8/edit?usp=drivesdk" target="_blank" style="color: #4fc3f7; text-decoration: underline;">Task 2 Document</a></li>
+    <li style="margin-bottom: 8px;"><a href="https://docs.google.com/document/d/1DyLSEQxun7tKItRDZbXO4G0nXcDcmOgI/edit?usp=drivesdk&ouid=102804642539490264978&rtpof=true&sd=true" target="_blank" style="color: #4fc3f7; text-decoration: underline;">Task 3 Document</a></li>
+    <li style="margin-bottom: 8px;"><a href="https://docs.google.com/document/d/17VtuhNmTOEO8ysYxyUGRSVsOK3r9cJlFvmIe5CWeVS8/edit?usp=drivesdk" target="_blank" style="color: #4fc3f7; text-decoration: underline;">Task 4 Document</a></li>
+    <li style="margin-bottom: 8px;"><a href="https://docs.google.com/document/d/15cDCv8YgR3bR1to0twIvnexHE2AJdQPUaqerQOuauLg/edit?usp=drivesdk" target="_blank" style="color: #4fc3f7; text-decoration: underline;">Task 5 Document</a></li>
+  </ul>
+  <p class="note">Tip: use this section for HTML, CSS, JavaScript, responsive design, forms, and any other Web course assignments.</p>
+</div>
 </section>
 
 <section id="contact">
@@ -101,13 +107,74 @@ footer{padding:28px 0;color:var(--muted);font-size:.9rem;text-align:center}
 <footer>© <span id="year"></span> Mariem Mohamed Gharieb · Built with HTML, CSS & JavaScript</footer>
 </div>
 <script>
-const form=document.getElementById('taskForm'), input=document.getElementById('taskInput'), list=document.getElementById('tasks');
-let tasks=[];
-try{tasks=JSON.parse(localStorage.getItem('mariemWebTasks')||'[]')}catch(e){tasks=[]}
-function save(){localStorage.setItem('mariemWebTasks',JSON.stringify(tasks))}
-function render(){list.innerHTML='';tasks.forEach((task,i)=>{const li=document.createElement('li');li.className='task'+(task.done?' done':'');const cb=document.createElement('input');cb.type='checkbox';cb.checked=task.done;cb.setAttribute('aria-label','Mark task complete');cb.addEventListener('change',()=>{tasks[i].done=cb.checked;save();render()});const label=document.createElement('span');label.textContent=task.text;const del=document.createElement('button');del.className='delete';del.textContent='Delete';del.addEventListener('click',()=>{tasks.splice(i,1);save();render()});li.append(cb,label,del);list.append(li)})}
-form.addEventListener('submit',e=>{e.preventDefault();const text=input.value.trim();if(!text)return;tasks.push({text,done:false});save();render();input.value='';input.focus()});
-document.getElementById('year').textContent=new Date().getFullYear();render();
+  const form = document.getElementById('taskForm');
+  const input = document.getElementById('taskInput');
+  const list = document.getElementById('taskList') || document.querySelector('.task-list') || document.querySelector('ul');
+
+  let defaultTasks = [
+    "https://docs.google.com/document/d/17XNaugrMuMX4-rdWWFGvPr8POZNRQrSZKRgXtgYHjmE/edit?usp=drivesdk",
+    "https://docs.google.com/document/d/154Uw86ijGFRDRa_fFR_YgahBB3kjBqXRDCPKyuJzTT8/edit?usp=drivesdk",
+    "https://docs.google.com/document/d/1DyLSEQxun7tKItRDZbXO4G0nXcDcmOgI/edit?usp=drivesdk&ouid=102804642539490264978&rtpof=true&sd=true",
+    "https://docs.google.com/document/d/17VtuhNmTOEO8ysYxyUGRSVsOK3r9cJlFvmIe5CWeVS8/edit?usp=drivesdk",
+    "https://docs.google.com/document/d/15cDCv8YgR3bR1to0twIvnexHE2AJdQPUaqerQOuauLg/edit?usp=drivesdk"
+  ];
+
+  let tasks = [];
+  try {
+    const saved = localStorage.getItem('mariemWebTasks');
+    if (saved) {
+      const parsed = JSON.parse(saved);
+      tasks = parsed.length > 0 ? parsed : defaultTasks;
+    } else {
+      tasks = defaultTasks;
+    }
+  } catch(e) {
+    tasks = defaultTasks;
+  }
+
+  function save() {
+    localStorage.setItem('mariemWebTasks', JSON.stringify(tasks));
+  }
+
+  function render() {
+    if (!list) return;
+    list.innerHTML = '';
+    tasks.forEach((task, i) => {
+      const li = document.createElement('li');
+      li.style.cssText = "display: flex; justify-content: space-between; align-items: center; margin-bottom: 8px; padding: 10px; background: rgba(255,255,255,0.05); border-radius: 6px; word-break: break-all;";
+      li.innerHTML = `
+        <a href="${task}" target="_blank" style="color: #4fc3f7; text-decoration: underline;">${task}</a>
+        <button onclick="deleteTask(${i})" style="background: #ff5252; color: white; border: none; padding: 4px 8px; border-radius: 4px; cursor: pointer; margin-left: 10px;">Delete</button>
+      `;
+      list.appendChild(li);
+    });
+  }
+
+  window.deleteTask = function(index) {
+    tasks.splice(index, 1);
+    save();
+    render();
+  };
+
+  if (form) {
+    form.addEventListener('submit', (e) => {
+      e.preventDefault();
+      const text = input ? input.value.trim() : '';
+      if (!text) return;
+      tasks.push(text);
+      if (input) input.value = '';
+      save();
+      render();
+    });
+  }
+
+  document.addEventListener('DOMContentLoaded', () => {
+    const yearEl = document.getElementById('year');
+    if (yearEl) yearEl.textContent = new Date().getFullYear();
+    render();
+  });
+
+  render();
 </script>
 </body>
 </html>
