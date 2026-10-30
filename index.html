@@ -34,14 +34,15 @@ section{padding:64px 0;border-top:1px solid var(--line)}
 .skill-list{display:flex;flex-wrap:wrap;gap:12px}.skill{background:var(--panel2);border:1px solid var(--line);border-radius:12px;padding:12px 16px}
 .project-top{display:flex;justify-content:space-between;gap:10px;align-items:start}.label{font-size:.76rem;color:var(--accent2);font-weight:700}
 .taskbox{background:var(--panel);border:1px solid var(--line);padding:22px;border-radius:18px}
-.task-form{display:flex;gap:10px;margin:18px 0}.task-form input{flex:1;min-width:0;background:#0b1020;color:var(--text);border:1px solid var(--line);border-radius:10px;padding:12px;font:inherit}
+.task-form{display:flex;flex-direction:column;gap:10px;margin:18px 0}
+.task-form input{width:100%;background:#0b1020;color:var(--text);border:1px solid var(--line);border-radius:10px;padding:12px;font:inherit}
 .task-form button{background:var(--accent2);color:#08131a;border:0;border-radius:10px;padding:12px 16px;font-weight:800;cursor:pointer}
-#tasks{list-style:none;padding:0;margin:0}.task{display:flex;align-items:center;gap:10px;padding:12px 4px;border-bottom:1px solid var(--line)}.task span{flex:1;overflow-wrap:anywhere}.task.done span{text-decoration:line-through;color:var(--muted)}.delete{background:transparent;border:1px solid var(--line);color:var(--muted);border-radius:8px;padding:5px 9px;cursor:pointer}
+#taskList{list-style:none;padding:0;margin:0}
 .note{font-size:.9rem;color:var(--muted);margin-top:12px}
 .contact-row{display:flex;flex-wrap:wrap;gap:12px}.contact-pill{padding:12px 16px;border:1px solid var(--line);border-radius:12px;color:var(--muted)}
 footer{padding:28px 0;color:var(--muted);font-size:.9rem;text-align:center}
 @media(max-width:800px){.hero{grid-template-columns:1fr;min-height:auto;padding-top:35px}.profile-card{max-width:500px}.grid{grid-template-columns:1fr 1fr}.navlinks{gap:12px;flex-wrap:wrap;justify-content:flex-end}}
-@media(max-width:540px){.grid{grid-template-columns:1fr}nav{align-items:flex-start}.navlinks{font-size:.82rem}.task-form{flex-direction:column}h1{letter-spacing:-1px}}
+@media(max-width:540px){.grid{grid-template-columns:1fr}nav{align-items:flex-start}.navlinks{font-size:.82rem}h1{letter-spacing:-1px}}
 </style>
 </head>
 <body>
@@ -86,18 +87,20 @@ footer{padding:28px 0;color:var(--muted);font-size:.9rem;text-align:center}
 </section>
 
 <section id="web-tasks">
-  <div class="section-head"><div class="kicker">Practice tracker</div><h2>Web Development Tasks</h2><p>Add your Web course tasks here and tick them off as you finish. Tasks are saved in this browser on this device.</p></div>
+  <div class="section-head"><div class="kicker">Practice tracker</div><h2>Web Development Tasks & Prompts</h2><p>Add your tasks or prompts below dynamically. No need to modify code or GitHub anymore!</p></div>
   <div class="taskbox">
-  <div class="taskbox">
-  <ul id="tasks" style="list-style-type: disc; padding-left: 20px; text-align: left; color: white;">
-    <li style="margin-bottom: 8px;"><a href="https://docs.google.com/document/d/17XNaugrMuMX4-rdWWFGvPr8POZNRQrSZKRgXtgYHjmE/edit?usp=drivesdk" target="_blank" style="color: #4fc3f7; text-decoration: underline;">Task 1 Document</a></li>
-    <li style="margin-bottom: 8px;"><a href="https://docs.google.com/document/d/154Uw86ijGFRDRa_fFR_YgahBB3kjBqXRDCPKyuJzTT8/edit?usp=drivesdk" target="_blank" style="color: #4fc3f7; text-decoration: underline;">Task 2 Document</a></li>
-    <li style="margin-bottom: 8px;"><a href="https://docs.google.com/document/d/1DyLSEQxun7tKItRDZbXO4G0nXcDcmOgI/edit?usp=drivesdk&ouid=102804642539490264978&rtpof=true&sd=true" target="_blank" style="color: #4fc3f7; text-decoration: underline;">Task 3 Document</a></li>
-    <li style="margin-bottom: 8px;"><a href="https://docs.google.com/document/d/17VtuhNmTOEO8ysYxyUGRSVsOK3r9cJlFvmIe5CWeVS8/edit?usp=drivesdk" target="_blank" style="color: #4fc3f7; text-decoration: underline;">Task 4 Document</a></li>
-    <li style="margin-bottom: 8px;"><a href="https://docs.google.com/document/d/15cDCv8YgR3bR1to0twIvnexHE2AJdQPUaqerQOuauLg/edit?usp=drivesdk" target="_blank" style="color: #4fc3f7; text-decoration: underline;">Task 5 Document</a></li>
-  </ul>
-  <p class="note">Tip: use this section for HTML, CSS, JavaScript, responsive design, forms, and any other Web course assignments.</p>
-</div>
+    <!-- فورم إضافة تاسك أو برومبت جديد -->
+    <form id="taskForm" class="task-form">
+      <input type="text" id="taskTitle" placeholder="Task or Prompt Name (e.g., Task 1)" required>
+      <input type="url" id="taskInput" placeholder="Paste Link here (https://...)" required>
+      <button type="submit">Add New Task</button>
+    </form>
+    
+    <!-- القائمة فارغة وجاهزة للإضافات الجديدة -->
+    <ul id="taskList"></ul>
+    
+    <p class="note">Tip: Your added tasks are saved instantly in your browser storage.</p>
+  </div>
 </section>
 
 <section id="contact">
@@ -106,25 +109,21 @@ footer{padding:28px 0;color:var(--muted);font-size:.9rem;text-align:center}
 </section>
 <footer>© <span id="year"></span> Mariem Mohamed Gharieb · Built with HTML, CSS & JavaScript</footer>
 </div>
+
 <script>
   const form = document.getElementById('taskForm');
-  const input = document.getElementById('taskInput');
-  const list = document.getElementById('taskList') || document.querySelector('.task-list') || document.querySelector('ul');
+  const titleInput = document.getElementById('taskTitle');
+  const urlInput = document.getElementById('taskInput');
+  const list = document.getElementById('taskList');
 
-  let defaultTasks = [
-    "https://docs.google.com/document/d/17XNaugrMuMX4-rdWWFGvPr8POZNRQrSZKRgXtgYHjmE/edit?usp=drivesdk",
-    "https://docs.google.com/document/d/154Uw86ijGFRDRa_fFR_YgahBB3kjBqXRDCPKyuJzTT8/edit?usp=drivesdk",
-    "https://docs.google.com/document/d/1DyLSEQxun7tKItRDZbXO4G0nXcDcmOgI/edit?usp=drivesdk&ouid=102804642539490264978&rtpof=true&sd=true",
-    "https://docs.google.com/document/d/17VtuhNmTOEO8ysYxyUGRSVsOK3r9cJlFvmIe5CWeVS8/edit?usp=drivesdk",
-    "https://docs.google.com/document/d/15cDCv8YgR3bR1to0twIvnexHE2AJdQPUaqerQOuauLg/edit?usp=drivesdk"
-  ];
+  // تم تصفير التاسكات تماماً لتكون البداية نظيفة
+  let defaultTasks = [];
 
   let tasks = [];
   try {
-    const saved = localStorage.getItem('mariemWebTasks');
+    const saved = localStorage.getItem('mariemWebTasksDynamic');
     if (saved) {
-      const parsed = JSON.parse(saved);
-      tasks = parsed.length > 0 ? parsed : defaultTasks;
+      tasks = JSON.parse(saved);
     } else {
       tasks = defaultTasks;
     }
@@ -133,17 +132,17 @@ footer{padding:28px 0;color:var(--muted);font-size:.9rem;text-align:center}
   }
 
   function save() {
-    localStorage.setItem('mariemWebTasks', JSON.stringify(tasks));
+    localStorage.setItem('mariemWebTasksDynamic', JSON.stringify(tasks));
   }
 
   function render() {
     if (!list) return;
     list.innerHTML = '';
-    tasks.forEach((task, i) => {
+    tasks.forEach((item, i) => {
       const li = document.createElement('li');
       li.style.cssText = "display: flex; justify-content: space-between; align-items: center; margin-bottom: 8px; padding: 10px; background: rgba(255,255,255,0.05); border-radius: 6px; word-break: break-all;";
       li.innerHTML = `
-        <a href="${task}" target="_blank" style="color: #4fc3f7; text-decoration: underline;">${task}</a>
+        <a href="${item.url}" target="_blank" style="color: #4fc3f7; text-decoration: underline; font-weight: 500;">${item.name}</a>
         <button onclick="deleteTask(${i})" style="background: #ff5252; color: white; border: none; padding: 4px 8px; border-radius: 4px; cursor: pointer; margin-left: 10px;">Delete</button>
       `;
       list.appendChild(li);
@@ -159,10 +158,13 @@ footer{padding:28px 0;color:var(--muted);font-size:.9rem;text-align:center}
   if (form) {
     form.addEventListener('submit', (e) => {
       e.preventDefault();
-      const text = input ? input.value.trim() : '';
-      if (!text) return;
-      tasks.push(text);
-      if (input) input.value = '';
+      const nameVal = titleInput ? titleInput.value.trim() : '';
+      const urlVal = urlInput ? urlInput.value.trim() : '';
+      if (!nameVal || !urlVal) return;
+      
+      tasks.push({ name: nameVal, url: urlVal });
+      if (titleInput) titleInput.value = '';
+      if (urlInput) urlInput.value = '';
       save();
       render();
     });
